@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hydro Habit - Android App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ayushacharya05/Hydro-Habit/refs/heads/main/download/icon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ayushacharya05/Hydro-Habit/refs/heads/main/download/icon.png" />
     <style>
         :root {
             --primary-blue: #0052cc;
@@ -39,14 +39,14 @@
             max-width: 1200px;
             width: 100%;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 3rem;
-            align-items: center;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            align-items: stretch;
             background: var(--card-bg);
             backdrop-filter: blur(10px);
-            padding: 3rem;
             border-radius: 24px;
             box-shadow: 0 20px 40px rgba(0, 82, 204, 0.1);
+            overflow: hidden; /* Important to keep bottom-right corner rounded */
         }
 
         /* Content Section */
@@ -54,6 +54,8 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+            padding: 3rem;
+            z-index: 2;
         }
 
         .brand-header {
@@ -163,49 +165,38 @@
             box-shadow: 0 14px 24px rgba(0, 82, 204, 0.3);
         }
 
-        .website-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: opacity 0.2s ease;
-        }
-
-        .website-link:hover {
-            opacity: 0.8;
-            text-decoration: underline;
-        }
-
-        /* Preview Image Section */
+        /* Right Preview Section with Scaled Image */
         .preview-container {
             position: relative;
+            width: 100%;
+            height: 100%;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            align-items: flex-end;
+            justify-content: flex-end;
+            overflow: hidden;
         }
 
         .preview-image {
             width: 100%;
-            max-width: 450px;
             height: auto;
-            border-radius: 16px;
-            filter: drop-shadow(0 20px 30px rgba(0, 82, 204, 0.15));
+            transform: scale(1.45); /* Image lai majjale thulo banaune */
+            transform-origin: bottom right; /* Anchored to bottom right corner */
+            display: block;
             transition: transform 0.4s ease;
         }
 
         .preview-container:hover .preview-image {
-            transform: scale(1.02);
+            transform: scale(1.48);
         }
 
         /* Responsive Design */
         @media (max-width: 900px) {
             .container {
                 grid-template-columns: 1fr;
+            }
+
+            .content {
                 padding: 2rem;
-                gap: 2.5rem;
             }
 
             .title-group h1 {
@@ -214,6 +205,12 @@
 
             .preview-container {
                 order: -1;
+                height: 350px;
+            }
+
+            .preview-image {
+                transform: scale(1.1);
+                transform-origin: center;
             }
 
             .download-button {
@@ -223,7 +220,6 @@
     </style>
 </head>
 <body>
-
     <div class="container">
         <!-- Content Side -->
         <div class="content">
@@ -278,27 +274,23 @@
             <div class="actions">
                 <a href="https://raw.githubusercontent.com/ayushacharya05/Hydro-Habit/refs/heads/main/download/Hydro-habit.apk" class="download-button" download="HydroHabit.apk">
                     <i class="fa-brands fa-android"></i> Download for Android
-                </a>
-              
+                </a>                          
             </div>
         </div>
 
         <!-- Preview Image Side -->
         <div class="preview-container">
-            <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/images/hydro-habit%2009160.png" alt="Hydro Habit Showcase" class="preview-image">
+            <img src="https://raw.githubusercontent.com/ayushacharya05/Ayush-Acharya/refs/heads/main/projects/images/hydro-habit-p.png" alt="Hydro Habit Showcase" class="preview-image">
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Track download button clicks or handle interaction
-            const downloadBtn = document.querySelector('.download-button');
-            
+            const downloadBtn = document.querySelector('.download-button');            
             downloadBtn.addEventListener('click', (e) => {
                 console.log('Download initiated for HydroHabit.apk');
             });
 
-            // Gentle scroll entrance for mobile screens
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
